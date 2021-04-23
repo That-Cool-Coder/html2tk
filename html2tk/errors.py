@@ -1,2 +1,2 @@
-class NO_HTML_PROVIDED(BaseException):
+class NoHtmlProvided(BaseException):
     pass
