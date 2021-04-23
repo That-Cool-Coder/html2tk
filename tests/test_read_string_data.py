@@ -12,7 +12,7 @@ def test_read_string_data():
     </body>
     </html>
 '''
-    html2tk.Application(raw_html=content)
+    html2tk.Application(html=content).mainloop()
 
 if __name__ == '__main__':
     test_read_string_data()
