@@ -7,8 +7,8 @@ html = '''
 <p>This is a paragraph</p>
 <p>And things are getting very interesting</p>
 <button id="btn">Click me!</button>
-<div>
-<p id="somediv">I have appeared</p>
+<div id="somediv">
+<p>I have appeared</p>
 </div>
 </body>
 </html>

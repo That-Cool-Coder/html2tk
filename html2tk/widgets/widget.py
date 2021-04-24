@@ -9,25 +9,28 @@ class Widget:
 
     @property
     def text(self):
-        return self.widget.cget('text')
+        return self.tk_widget.cget('text')
     
     @text.setter
     def text(self, text):
-        self.widget.configure(text=text)
+        self.tk_widget.configure(text=text)
 
     @property
     def font(self):
-        return self.widget.cget('font')
+        return self.tk_widget.cget('font')
     
     @font.setter
     def font(self, font):
-        self.widget.configure(font=font)
+        self.tk_widget.configure(font=font)
+    
+    def clear(self):
+        self.tk_widget.children.clear()
     
     def hide(self):
-        self.widget.pack_forget()
+        self.tk_widget.pack_forget()
 
     def unhide(self):
-        self.widget.pack()
+        self.tk_widget.pack()
 
     def get_element_by_id(self, id:str):
         if self.html_element is None:
@@ -40,4 +43,4 @@ class Widget:
             return html_element.widget
     
     def pack(self):
-        self.widget.pack()
+        self.tk_widget.pack()

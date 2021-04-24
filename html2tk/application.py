@@ -8,12 +8,13 @@ from html2tk import errors
 class Application(widgets.Widget):
     def __init__(self, master=None, html=None, source_file_path=None,
             stylesheet=None):
+
         if master is None:
             self.master = tk.Tk()
         else:
             self.master = master
 
-        self.body = tk.Frame(self.master)
+        self.body = widgets.Frame(self.master, None)
         self.body.pack()
 
         if source_file_path is not None or html is not None:
@@ -51,31 +52,35 @@ class Application(widgets.Widget):
         if self.html_element is None:
             raise errors.NoHtmlProvided
 
-        self.body.children.clear()
+        self.body.clear()
 
         for html_element in self.html_element.recursiveChildGenerator():
             widget = None
+
             parent = html_element.parent.widget
             if parent is None:
+                html_element.parent.widget = self.body
                 parent = self.body
+
             if html_element.name == 'div':
-                widget = widgets.Frame(parent, html_element)
+                widget = widgets.Frame(parent.tk_widget, html_element)
             elif html_element.name == 'p':
-                widget = widgets.Label(parent, html_element,
+                widget = widgets.Label(parent.tk_widget, html_element,
                     self.get_text_from_element(html_element),
                     self.stylesheet.paragraph_font)
             elif html_element.name == 'h1':
-                widget = widgets.Label(parent, html_element,
+                widget = widgets.Label(parent.tk_widget, html_element,
                     self.get_text_from_element(html_element),
                     self.stylesheet.heading_font)
             elif html_element.name == 'button':
-                widget = widgets.Button(parent, html_element,
+                widget = widgets.Button(parent.tk_widget, html_element,
                     self.get_text_from_element(html_element),
                     self.stylesheet.button_font)
 
-            html_element.widget = widget
             if widget is not None:
                 widget.pack()
+
+                html_element.widget = widget
     
     def create_p_styled(self, html_element):
         print('Bold and italic aren\'t supported')
