@@ -91,6 +91,8 @@ class Application(widgets.Widget):
                 else:
                     widget = widgets.Input(parent.tk_widget, html_element,
                         self.stylesheet.input_font)
+            elif html_element.name == 'select':
+                widget = widgets.Select(parent.tk_widget, html_element)
 
             if widget is not None:
                 widget.pack()

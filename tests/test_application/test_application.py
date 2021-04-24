@@ -8,8 +8,15 @@ html = '''
 <br>
 <p>How would you rate your happiness?</p>
 <input id="input" type="range", step="5">
+<br>
+<p>And how true is what you just said?</p>
+<select id="select">
+<option value="true">very true</option>
+<option value="false">very false</option>
+</select>
 <button id="btn">Submit</button>
 <br>
+
 <p id="output"></p>
 
 </body>
