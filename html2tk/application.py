@@ -29,6 +29,9 @@ class Application(widgets.Widget):
     
     def mainloop(self):
         self.master.mainloop()
+        
+    def update(self):
+        self.body.tk_widget.winfo_toplevel().update()
     
     def load_html(self, html=None, source_file_path=None):
         if source_file_path is not None:
@@ -64,21 +67,36 @@ class Application(widgets.Widget):
 
             if html_element.name == 'div':
                 widget = widgets.Frame(parent.tk_widget, html_element)
+            if html_element.name == 'br':
+                widget = widgets.LineBreak(parent.tk_widget, html_element)
             elif html_element.name == 'p':
-                widget = widgets.Label(parent.tk_widget, html_element,
+                widget = widgets.Paragraph(parent.tk_widget, html_element,
                     self.get_text_from_element(html_element),
                     self.stylesheet.paragraph_font)
             elif html_element.name == 'h1':
-                widget = widgets.Label(parent.tk_widget, html_element,
+                widget = widgets.Paragraph(parent.tk_widget, html_element,
                     self.get_text_from_element(html_element),
                     self.stylesheet.heading_font)
             elif html_element.name == 'button':
                 widget = widgets.Button(parent.tk_widget, html_element,
                     self.get_text_from_element(html_element),
                     self.stylesheet.button_font)
+            elif html_element.name == 'input':
+                input_type = html_element.attrs.get('type', None)
+                if input_type == 'range':
+                    widget = widgets.RangeInput(parent.tk_widget, html_element,
+                        int(html_element.attrs.get('min', 0)),
+                        int(html_element.attrs.get('max', 100)),
+                        int(html_element.attrs.get('step', 1)))
+                else:
+                    widget = widgets.Input(parent.tk_widget, html_element,
+                        self.stylesheet.input_font)
 
             if widget is not None:
                 widget.pack()
+
+                if html_element.has_attr('hidden'):
+                    widget.hide()
 
                 html_element.widget = widget
     

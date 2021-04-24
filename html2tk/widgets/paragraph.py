@@ -2,7 +2,7 @@ import tkinter as tk
 
 from html2tk.widgets import Widget
 
-class Label(Widget):
+class Paragraph(Widget):
     def __init__(self, master, html_element, text, font):
         super().__init__(master, html_element)
 

@@ -4,6 +4,7 @@ from html2tk import errors
 
 class Widget:
     def __init__(self, master, html_element):
+        # Note that master should be a tk widget (not a html2tk.widget)
         self.master = master
         self.html_element = html_element
 
