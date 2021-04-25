@@ -29,6 +29,9 @@ class Application(widgets.Widget):
     
     def mainloop(self):
         self.master.mainloop()
+    
+    def maximise(self):
+        self.body.tk_widget.winfo_toplevel().state('zoomed')
         
     def update(self):
         self.body.tk_widget.winfo_toplevel().update()
@@ -71,23 +74,17 @@ class Application(widgets.Widget):
                 widget = widgets.LineBreak(parent.tk_widget, html_element)
             elif html_element.name == 'p':
                 widget = widgets.Paragraph(parent.tk_widget, html_element,
-                    self.get_text_from_element(html_element),
                     self.stylesheet.paragraph_font)
             elif html_element.name == 'h1':
                 widget = widgets.Paragraph(parent.tk_widget, html_element,
-                    self.get_text_from_element(html_element),
                     self.stylesheet.heading_font)
             elif html_element.name == 'button':
                 widget = widgets.Button(parent.tk_widget, html_element,
-                    self.get_text_from_element(html_element),
                     self.stylesheet.button_font)
             elif html_element.name == 'input':
                 input_type = html_element.attrs.get('type', None)
                 if input_type == 'range':
-                    widget = widgets.RangeInput(parent.tk_widget, html_element,
-                        int(html_element.attrs.get('min', 0)),
-                        int(html_element.attrs.get('max', 100)),
-                        int(html_element.attrs.get('step', 1)))
+                    widget = widgets.RangeInput(parent.tk_widget, html_element)
                 else:
                     widget = widgets.Input(parent.tk_widget, html_element,
                         self.stylesheet.input_font)
@@ -122,9 +119,3 @@ class Application(widgets.Widget):
             font = self.stylesheet.paragraph_font + (styling,)
             return tk.Label(self.body, text=self.get_text_from_element(html_element),
                 font=font)
-
-    def get_text_from_element(self, element):
-        if element.text is None:
-            return ''
-        else:
-            return ''.join(element.find_all(text=True, recursive=False)).strip()

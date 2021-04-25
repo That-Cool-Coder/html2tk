@@ -1,18 +1,21 @@
 import tkinter as tk
+import tkinter.ttk as ttk
 
 from html2tk.widgets import Widget
 
 class RangeInput(Widget):
-    def __init__(self, master, html_element, min=0, max=100, step=1, value=None):
+    def __init__(self, master, html_element):
         super().__init__(master, html_element)
 
-        if value is None:
-            value = (min + max) / 2
+        min = int(html_element.attrs.get('min', 0))
+        max = int(html_element.attrs.get('max', 100))
+        self.increment = int(html_element.attrs.get('increment', 1))
+        value = int(html_element.attrs.get('value', (min + max) / 2))
 
-        self.tk_widget = tk.Scale(self.master, from_=min, to=max, resolution=step,
+        self.tk_widget = ttk.Scale(self.master, from_=min, to=max,
             orient=tk.HORIZONTAL)
         self.value = value
-    
+
     @property
     def value(self):
         return self.tk_widget.get()

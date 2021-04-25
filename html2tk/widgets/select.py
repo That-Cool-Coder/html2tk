@@ -1,4 +1,5 @@
 import tkinter as tk
+import tkinter.ttk as ttk
 
 from html2tk.widgets import Widget
 
@@ -9,11 +10,18 @@ class Select(Widget):
         options = []
         for child in html_element.children:
             if child.name is not None:
-                options.append(child.value)
+                options.append(child.attrs.get('value'))
+        
+        value = html_element.attrs.get('value', None)
 
-        self.tk_stringvar = tk.StringVar(None, value='')
-        self.tk_widget = tk.OptionMenu(self.master, self.tk_stringvar, '', *options)
-        #self.value = value
+        if value is None and len(options) > 0:
+            value = options[0]
+        else:
+            value = ''
+
+        self.tk_stringvar = tk.StringVar(self.master, value)
+        self.tk_widget = ttk.OptionMenu(self.master, self.tk_stringvar, None, *options)
+        self.value = value
     
     @property
     def value(self):
@@ -21,20 +29,4 @@ class Select(Widget):
     
     @value.setter
     def value(self, val):
-        self.tk_widget.set(val)
-    
-    @property
-    def min(self):
-        return self.tk_widget.cget('from')
-    
-    @min.setter
-    def min(self, val):
-        self.tk_widget.configure(from_=val)
-    
-    @property
-    def max(self):
-        return self.tk_widget.cget('to')
-    
-    @max.setter
-    def max(self, val):
-        self.tk_widget.configure(to=val)
+        self.tk_stringvar.set(val)
