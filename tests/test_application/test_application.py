@@ -3,23 +3,27 @@ from time import sleep
 
 html = '''
 <html>
+<head>
+<title>Happiness Program</title>
+</head>
+
 <body>
 <h1>Happiness Program</h1>
 <br>
 
+<p>Background color of app:</p>
+<input type="color">
+
 <p>What is your name?</p>
-<input id="name">
+<input id="name" value="Name">
 <br>
 
 <p>How would you rate your happiness?</p>
-<input id="happiness" type="range" increment="20" value="48">
+<input id="happiness" type="range" increment="20" value="50">
 <br>
 
 <p>Is what you just said true?</p>
-<select id="select">
-<option value="yes">yes</option>
-<option value="no">no</option>
-</select>
+<input id="truth" type="checkbox" checked>
 <br>
 
 <button id="btn">Submit</button>
@@ -55,7 +59,7 @@ def callback():
     sleep(1)
 
     happiness = app.get_element_by_id('happiness').value
-    if app.get_element_by_id('select').value == 'no':
+    if app.get_element_by_id('truth').checked == False:
         happiness = 100 - happiness
 
     result = app.get_element_by_id('name').value.capitalize() + ', '

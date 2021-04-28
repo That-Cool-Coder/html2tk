@@ -5,4 +5,6 @@ from .paragraph import Paragraph
 from .button import Button
 from .input import Input
 from .range_input import RangeInput
+from .checkbox_input import CheckboxInput
+from .color_input import ColorInput
 from .select import Select

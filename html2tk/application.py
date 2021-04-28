@@ -1,4 +1,5 @@
 import tkinter as tk
+import os
 
 from bs4 import BeautifulSoup
 
@@ -31,12 +32,20 @@ class Application(widgets.Widget):
         self.master.mainloop()
     
     def maximise(self):
-        self.body.tk_widget.winfo_toplevel().state('zoomed')
+        # windows
+        if os.name == 'nt':
+            self.body.tk_widget.winfo_toplevel().state('zoomed')
+        # unix
+        else:
+            self.body.tk_widget.winfo_toplevel().attributes('-zoomed', True)
         
+    def set_title(self, title:str):
+        self.body.tk_widget.winfo_toplevel().title(title)
+
     def update(self):
         self.body.tk_widget.winfo_toplevel().update()
     
-    def load_html(self, html=None, source_file_path=None):
+    def load_html(self, html:str=None, source_file_path:str=None):
         if source_file_path is not None:
             file = None
             try:
@@ -57,6 +66,10 @@ class Application(widgets.Widget):
     def populate_body(self):
         if self.html_element is None:
             raise errors.NoHtmlProvided
+
+        title_element = self.html_element.find('title')
+        if title_element is not None:
+            self.set_title(title_element.get_text())
 
         self.body.clear()
 
@@ -85,6 +98,10 @@ class Application(widgets.Widget):
                 input_type = html_element.attrs.get('type', None)
                 if input_type == 'range':
                     widget = widgets.RangeInput(parent.tk_widget, html_element)
+                elif input_type == 'checkbox':
+                    widget = widgets.CheckboxInput(parent.tk_widget, html_element)
+                elif input_type == 'color':
+                    widget = widgets.ColorInput(parent.tk_widget, html_element)
                 else:
                     widget = widgets.Input(parent.tk_widget, html_element,
                         self.stylesheet.input_font)
