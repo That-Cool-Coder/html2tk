@@ -12,10 +12,10 @@ html = '''
 <br>
 
 <p>Background color of app:</p>
-<input type="color">
+<input id="color" type="color">
 
-<p>What is your name?</p>
-<input id="name" value="Name">
+<br>
+<input id="name" placeholder="Enter your name">
 <br>
 
 <p>How would you rate your happiness?</p>
@@ -51,7 +51,12 @@ def test_application():
 
     app.get_element_by_id('btn').command = callback
 
+    app.get_element_by_id('color').add_callback(update_background)
+
     app.mainloop()
+
+def update_background():
+    app.set_background(app.get_element_by_id('color').value)
 
 def callback():
     app.get_element_by_id('output').text = 'Thinking...'

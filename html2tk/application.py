@@ -1,4 +1,5 @@
 import tkinter as tk
+import tkinter.ttk as ttk
 import os
 
 from bs4 import BeautifulSoup
@@ -41,6 +42,9 @@ class Application(widgets.Widget):
         
     def set_title(self, title:str):
         self.body.tk_widget.winfo_toplevel().title(title)
+    
+    def set_background(self, color:str):
+        self.body.tk_widget.winfo_toplevel().configure(background=color)
 
     def update(self):
         self.body.tk_widget.winfo_toplevel().update()

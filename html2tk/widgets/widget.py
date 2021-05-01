@@ -54,7 +54,7 @@ class Widget:
             return ''.join(element.find_all(text=True, recursive=False)).strip()
     
     def create_unique_ttk_style_name(self, base_style):
-        style_name = 'html2tk--' + str(Widget.style_count) + '.' + base_style
+        style_name = 'html2tk-' + str(Widget.style_count) + '.' + base_style
         Widget.style_count += 1
         return style_name
     

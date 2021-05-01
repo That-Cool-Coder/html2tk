@@ -1,10 +1,79 @@
 import tkinter as tk
 import tkinter.ttk as ttk
 
+import tkcolorpicker
 import colorutils
 
 from html2tk.widgets import Widget
 
+class ColorInput(Widget):
+    width = 40
+    height = 20
+
+    def __init__(self, master, html_element):
+        super().__init__(master, html_element)
+
+        self.__value = self.html_element.attrs.get('value', '#FFFFFF')
+
+        self.tk_widget = tk.Canvas(self.master,
+            width=self.width, height=self.height, bg='white')
+        self.tk_widget.bind('<Button-1>', self.ask_color)
+
+        self.callbacks = []
+    
+    def ask_color(self, event=None):
+        new_color = tkcolorpicker.askcolor(self.__value)[1]
+        if new_color is not None:
+            self.__value = new_color
+            self.tk_widget.configure(bg=self.__value)
+            for callback in self.callbacks:
+                callback()
+
+    def add_callback(self, func):
+        self.callbacks.append(func)
+    
+    def remove_callback(self, func):
+        raise NotImplementedError
+
+    @property
+    def value(self):
+        return self.__value
+    
+    @value.setter
+    def value(self, value):
+        # Expects string like '#ff785e'
+        self.__value = value
+
+    @property
+    def value_hsv(self):
+        return colorutils.hex_to_hsv(self.__value)
+    
+    @value_hsv.setter
+    def value_hsv(self, value):
+        # Expects a tuple (h, s, v)
+        self.__value = colorutils.hsv_to_hex(value)
+
+    @property
+    def value_hsl(self):
+        return colorutils.hex_to_hsl(self.__value)
+    
+    @value_hsl.setter
+    def value_hsl(self, value):
+        # Expects a tuple (h, s, l)
+        self.__value = colorutils.hsl_to_hex(value)
+
+    @property
+    def value_rgb(self):
+        return colorutils.hex_to_rgb(self.__value)
+    
+    @value_rgb.setter
+    def value_rgb(self, value):
+        # Expects a tuple (r, g, b)
+        self.__value = colorutils.rgb_to_hex(value)
+    
+
+
+'''
 class ColorInput(Widget):
     width = 100
     height = 70
@@ -53,3 +122,4 @@ class ColorInput(Widget):
                 value = (1 - row_num / self.resolution)
                 hex_color = colorutils.hsv_to_hex((hue, saturation, value))
                 self.sv_area.itemconfigure(rect, fill=hex_color)
+'''
