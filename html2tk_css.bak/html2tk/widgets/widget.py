@@ -1,7 +1,7 @@
 import tkinter as tk
 import tkinter.ttk as ttk
 
-from html2tk import errors
+import html2tk.errors
 
 class Widget:
     def __init__(self, master, html_element):
@@ -36,7 +36,7 @@ class Widget:
 
     def get_element_by_id(self, id:str):
         if self.html_element is None:
-            raise errors.NoHtmlProvided
+            raise html2tk.errors.NoHtmlProvided
 
         html_element = self.html_element.find(id=id)
         if html_element is None:

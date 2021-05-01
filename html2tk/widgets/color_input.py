@@ -3,7 +3,7 @@ import tkinter.ttk as ttk
 
 import colorutils
 
-from .widget import Widget
+from html2tk.widgets import Widget
 
 class ColorInput(Widget):
     width = 100

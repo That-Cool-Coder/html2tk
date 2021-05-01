@@ -1,7 +1,7 @@
 import tkinter as tk
 import tkinter.ttk as ttk
 
-from .widget import Widget
+from html2tk.widgets import Widget
 
 class CheckboxInput(Widget):
     def __init__(self, master, html_element):

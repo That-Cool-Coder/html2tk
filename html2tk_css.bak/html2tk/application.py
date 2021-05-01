@@ -2,10 +2,9 @@ import tkinter as tk
 
 from bs4 import BeautifulSoup
 
-from html2tk import widgets
-from html2tk import errors
+import html2tk.widgets
 
-class Application(widgets.Widget):
+class Application(html2tk.widgets.Widget)::
     def __init__(self, master=None, html=None, source_file_path=None,
             stylesheet=None):
 

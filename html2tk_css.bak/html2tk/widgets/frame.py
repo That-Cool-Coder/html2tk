@@ -1,9 +1,9 @@
 import tkinter as tk
 import tkinter.ttk as ttk
 
-from .widget import Widget
+import html2tk.widgets
 
-class Frame(Widget):
+class Frame(html2tk.widgets.Widget)::
     def __init__(self, master, html_element):
         super().__init__(master, html_element)
 
