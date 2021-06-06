@@ -16,7 +16,7 @@ class Application(widgets.Widget):
         else:
             self.master = master
 
-        self.body = widgets.Frame(self.master, None)
+        self.body = widgets.Div(self.master, None)
         self.body.pack()
 
         if source_file_path is not None or html is not None:
@@ -86,18 +86,19 @@ class Application(widgets.Widget):
                 parent = self.body
 
             if html_element.name == 'div':
-                widget = widgets.Frame(parent.tk_widget, html_element)
+                widget = widgets.Div(parent.tk_widget, html_element,
+                    self.stylesheet.div)
             if html_element.name == 'br':
                 widget = widgets.LineBreak(parent.tk_widget, html_element)
             elif html_element.name == 'p':
                 widget = widgets.Paragraph(parent.tk_widget, html_element,
-                    self.stylesheet.paragraph_font)
+                    self.stylesheet.paragraph)
             elif html_element.name == 'h1':
                 widget = widgets.Paragraph(parent.tk_widget, html_element,
-                    self.stylesheet.heading_font)
+                    self.stylesheet.heading)
             elif html_element.name == 'button':
                 widget = widgets.Button(parent.tk_widget, html_element,
-                    self.stylesheet.button_font)
+                    self.stylesheet.button)
             elif html_element.name == 'input':
                 input_type = html_element.attrs.get('type', None)
                 if input_type == 'range':

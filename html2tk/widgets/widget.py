@@ -9,6 +9,8 @@ class Widget:
         self.master = master
         self.html_element = html_element
 
+        self.hidden = True
+
     @property
     def text(self):
         return self.tk_widget.cget('text')
@@ -16,22 +18,16 @@ class Widget:
     @text.setter
     def text(self, text):
         self.tk_widget.configure(text=text)
-
-    @property
-    def font(self):
-        return self.tk_widget.cget('font')
-    
-    @font.setter
-    def font(self, font):
-        self.tk_widget.configure(font=font)
     
     def clear(self):
         self.tk_widget.children.clear()
     
     def hide(self):
+        self.hidden = True
         self.tk_widget.pack_forget()
 
-    def unhide(self):
+    def show(self):
+        self.hidden = False
         self.tk_widget.pack()
 
     def get_element_by_id(self, id:str):
