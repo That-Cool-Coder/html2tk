@@ -19,6 +19,8 @@ class Widget:
         self.is_windows = os.name == 'nt'
         self.tk_widget = None
 
+        self.hidden = True
+
     @property
     def text(self):
         '''The text inside of the widget'''
@@ -28,10 +30,13 @@ class Widget:
     def text(self, text):
         '''The text inside of the widget'''
         self.tk_widget.configure(text=text)
+<<<<<<< HEAD
     
     def parent_tk_window(self):
         '''Find the tkinter window which contains this widget'''
         return self.tk_widget.winfo_toplevel()
+=======
+>>>>>>> fa69abf4e3701e6adcd1b1f342b475016c52368b
     
     def parent_application(self):
         '''Find the html2tk.Application which contains this widget'''
@@ -42,12 +47,20 @@ class Widget:
         self.tk_widget.children.clear()
     
     def hide(self):
+<<<<<<< HEAD
         '''Make the widget no longer visible and no longer take up space'''
         self.tk_widget.pack_forget()
 
     def unhide(self):
         '''Make the widget visible.
         Note that this is functionally identical to pack()'''
+=======
+        self.hidden = True
+        self.tk_widget.pack_forget()
+
+    def show(self):
+        self.hidden = False
+>>>>>>> fa69abf4e3701e6adcd1b1f342b475016c52368b
         self.tk_widget.pack()
 
     def get_element_by_id(self, id:str):

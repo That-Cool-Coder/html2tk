@@ -31,10 +31,9 @@ class Button(Widget):
         
         text = self.get_text_from_element(html_soup_element)
 
-        style_name = self.create_unique_ttk_style_name('TButton')
-        style = ttk.Style(self.master)
-        style.configure(style_name, font=font)
-        self.tk_widget = ttk.Button(self.master, text=text, style=style_name)
+        self.style = Style('TButton', **style_data)
+
+        self.tk_widget = ttk.Button(self.master, text=text, style=self.style.name)
 
     @property
     def command(self):
@@ -43,4 +42,3 @@ class Button(Widget):
     @command.setter
     def command(self, callback):
         self.tk_widget.configure(command=callback)
-'''

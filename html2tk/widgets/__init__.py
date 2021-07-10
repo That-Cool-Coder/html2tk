@@ -1,6 +1,6 @@
 from .widget import Widget
 from .style import Style
-from .frame import Frame
+from .div import Div
 from .line_break import LineBreak
 from .paragraph import Paragraph
 from .button import Button
