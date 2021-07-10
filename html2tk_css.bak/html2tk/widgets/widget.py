@@ -4,10 +4,10 @@ import tkinter.ttk as ttk
 import html2tk.errors
 
 class Widget:
-    def __init__(self, master, html_element):
+    def __init__(self, master, html_soup_element):
         # Note that master should be a tk widget (not a html2tk.widget)
         self.master = master
-        self.html_element = html_element
+        self.html_soup_element = html_soup_element
 
     @property
     def text(self):
@@ -35,14 +35,14 @@ class Widget:
         self.tk_widget.pack()
 
     def get_element_by_id(self, id:str):
-        if self.html_element is None:
+        if self.html_soup_element is None:
             raise html2tk.errors.NoHtmlProvided
 
-        html_element = self.html_element.find(id=id)
-        if html_element is None:
+        html_soup_element = self.html_soup_element.find(id=id)
+        if html_soup_element is None:
             return None
         else:
-            return html_element.widget
+            return html_soup_element.widget
     
     def get_text_from_element(self, element):
         if element.text is None:

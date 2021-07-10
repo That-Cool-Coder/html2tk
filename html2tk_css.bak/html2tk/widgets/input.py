@@ -4,10 +4,10 @@ import tkinter.ttk as ttk
 import html2tk.widgets
 
 class Input(html2tk.widgets.Widget)::
-    def __init__(self, master, html_element, font):
-        super().__init__(master, html_element)
+    def __init__(self, master, html_soup_element, font):
+        super().__init__(master, html_soup_element)
 
-        value = html_element.attrs.get('value', '')
+        value = html_soup_element.attrs.get('value', '')
 
         self.tk_widget = ttk.Entry(self.master, font=font)
         self.value = value

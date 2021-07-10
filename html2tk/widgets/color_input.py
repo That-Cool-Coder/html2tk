@@ -1,6 +1,7 @@
 import tkinter as tk
 import tkinter.ttk as ttk
 
+from bs4 import BeautifulSoup
 import tkcolorpicker
 import colorutils
 
@@ -10,12 +11,12 @@ class ColorInput(Widget):
     width = 40
     height = 20
 
-    def __init__(self, master, html_element):
-        super().__init__(master, html_element)
+    def __init__(self, master: Widget, html_soup_element: BeautifulSoup):
+        super().__init__(master, html_soup_element)
 
-        self.__value = self.html_element.attrs.get('value', '#FFFFFF')
+        self.__value = self.html_soup_element.attrs.get('value', '#FFFFFF')
 
-        self.tk_widget = tk.Canvas(self.master,
+        self.tk_widget = tk.Canvas(self.master.tk_widget,
             width=self.width, height=self.height, bg='white')
         self.tk_widget.bind('<Button-1>', self.ask_color)
 
@@ -79,8 +80,8 @@ class ColorInput(Widget):
     height = 70
     resolution = 20
 
-    def __init__(self, master, html_element):
-        super().__init__(master, html_element)
+    def __init__(self, master, html_soup_element):
+        super().__init__(master, html_soup_element)
 
         self.tk_widget = ttk.Frame(self.master)
 

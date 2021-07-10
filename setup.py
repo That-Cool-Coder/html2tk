@@ -7,5 +7,10 @@ setup(
     description='Use HTML to create your tkinter applications instead of hard-coding widgets',
     author='ThatCoolCoder',
     license='GPLv3',
-    test_suite='tests'
+    test_suite='tests',
+    install_requires=[
+        'beautifulsoup4',
+        'tkcolorpicker',
+        'colorutils'
+    ]
 )

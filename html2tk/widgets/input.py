@@ -1,16 +1,19 @@
 import tkinter as tk
 import tkinter.ttk as ttk
 
+from bs4 import BeautifulSoup
+
 from html2tk.widgets import Widget
 
 class Input(Widget):
-    def __init__(self, master, html_element, font):
-        super().__init__(master, html_element)
+    '''A widget representing the html <input> element'''
+    def __init__(self, master: Widget, html_soup_element: BeautifulSoup):
+        super().__init__(master, html_soup_element)
 
-        value = html_element.attrs.get('value', '')
-        placeholder = html_element.attrs.get('placeholder', '')
+        value = html_soup_element.attrs.get('value', '')
+        placeholder = html_soup_element.attrs.get('placeholder', '')
 
-        self.tk_widget = ttk.Entry(self.master, font=font)
+        self.tk_widget = ttk.Entry(self.master.tk_widget)
         self.value = value
 
         self.showing_placeholder = False
@@ -31,9 +34,11 @@ class Input(Widget):
     
     @property
     def value(self):
+        '''The value that a user has typed into this widget'''
         return self.tk_widget.get()
     
     @value.setter
     def value(self, val):
+        '''The value that a user has typed into this widget'''
         self.tk_widget.delete(0, 'end')
         self.tk_widget.insert(0, val)

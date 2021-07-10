@@ -26,7 +26,7 @@ html = '''
 <input id="truth" type="checkbox" checked>
 <br>
 
-<button id="btn">Submit</button>
+<button id="submitButton">Submit</button>
 <br>
 
 <p id="output"></p>
@@ -35,8 +35,6 @@ html = '''
 </html>
 '''
 
-stylesheet = html2tk.Stylesheet(('helvetica', 12), ('helvetica', 20), ('helvetica', 12), ('helvetica', 10))
-
 global app
 
 def test_application():
@@ -44,13 +42,10 @@ def test_application():
     print('') # because pytest doesn't put a newline after their strings
 
     app = html2tk.Application()
-    app.maximise()
-    app.load_html(html=html)
-    app.apply_stylesheet(stylesheet)
-    app.populate_body()
+    app.maximize()
+    app.add_html(html)
 
-    app.get_element_by_id('btn').command = callback
-
+    app.get_element_by_id('submitButton').command = calc_happiness
     app.get_element_by_id('color').add_callback(update_background)
 
     app.mainloop()
@@ -58,7 +53,7 @@ def test_application():
 def update_background():
     app.set_background(app.get_element_by_id('color').value)
 
-def callback():
+def calc_happiness():
     app.get_element_by_id('output').text = 'Thinking...'
     app.update()
     sleep(1)

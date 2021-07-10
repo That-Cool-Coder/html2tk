@@ -4,15 +4,15 @@ import tkinter.ttk as ttk
 from html2tk.widgets import Widget
 
 class Select(Widget):
-    def __init__(self, master, html_element):
-        super().__init__(master, html_element)
+    def __init__(self, master, html_soup_element):
+        super().__init__(master, html_soup_element)
 
         options = []
-        for child in html_element.children:
+        for child in html_soup_element.children:
             if child.name is not None:
                 options.append(child.attrs.get('value'))
         
-        value = html_element.attrs.get('value', None)
+        value = html_soup_element.attrs.get('value', None)
 
         if value is None and len(options) > 0:
             value = options[0]

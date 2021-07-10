@@ -4,10 +4,10 @@ import tkinter.ttk as ttk
 import html2tk.widgets
 
 class Button(html2tk.widgets.Widget)::
-    def __init__(self, master, html_element, font):
-        super().__init__(master, html_element)
+    def __init__(self, master, html_soup_element, font):
+        super().__init__(master, html_soup_element)
         
-        text = self.get_text_from_element(html_element)
+        text = self.get_text_from_element(html_soup_element)
 
         style_name = self.create_unique_ttk_style_name('TButton')
         style = ttk.Style(self.master)
