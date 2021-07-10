@@ -15,6 +15,7 @@ class RangeInput(Widget):
         self.increment = int(html_soup_element.attrs.get('increment', 1))
         value = int(html_soup_element.attrs.get('value', (min + max) / 2))
 
+        print('Note that range inputs don\'t have styling yet')
         self.tk_widget = ttk.Scale(self.master.tk_widget, from_=min, to=max,
             orient=tk.HORIZONTAL)
         self.value = value

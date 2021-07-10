@@ -10,7 +10,9 @@ class Button(Widget):
         super().__init__(master, html_soup_element)
         
         text = self.get_text_from_element(html_soup_element)
-        self.tk_widget = ttk.Button(self.master.tk_widget, text=text)
+        self.style = self.parent_application().stylesheet['button']
+        self.tk_widget = ttk.Button(self.master.tk_widget,
+            text=text, style=self.style.name)
 
     @property
     def command(self):
@@ -42,3 +44,4 @@ class Button(Widget):
     @command.setter
     def command(self, callback):
         self.tk_widget.configure(command=callback)
+'''

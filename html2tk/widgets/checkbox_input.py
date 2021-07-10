@@ -11,8 +11,9 @@ class CheckboxInput(Widget):
         super().__init__(master, html_soup_element)
 
         self.tk_intvar = tk.IntVar()
+        self.style = self.parent_application().stylesheet['checkbox_input']
         self.tk_widget = ttk.Checkbutton(self.master.tk_widget, variable=self.tk_intvar,
-            command=self.update_checked)
+            command=self.update_checked, style=self.style.name)
         
         if self.html_soup_element.has_attr('checked'):
             self.tk_intvar.set(1)

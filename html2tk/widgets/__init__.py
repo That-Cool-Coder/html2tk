@@ -3,6 +3,7 @@ from .style import Style
 from .div import Div
 from .line_break import LineBreak
 from .paragraph import Paragraph
+from .heading import Heading
 from .button import Button
 from .input import Input
 from .range_input import RangeInput

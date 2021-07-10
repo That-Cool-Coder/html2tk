@@ -5,19 +5,33 @@ class Style:
     # This counter allows us to create unique ttk style names
     style_count = 0
 
-    def __init__(self, base_style_name, *args, **kwargs):
+    TK_DEFAULT_FONT_SIZE = 10
+
+    def __init__(self, base_style_name, **kwargs):
         self.base_style_name = base_style_name
 
         # create a name garanteed to be unique by using a counter
         self.name = f'html2tk-{str(self.__class__.style_count)}.{base_style_name}'
         self.__class__.style_count += 1
 
+        self.initial_styling = kwargs
+        self.fully_initiated = False
+        
+    def init(self):
+        '''When creating a ttk.Style, a new window is created
+        if one doesn't exist already.
+        This is bad as styles will often be created prior to window starting,
+        which then means we have a useless extra window.
+        To fix that, we have a seperate init method that a stylesheet can call
+        when the style is actually needed.'''
+
         # Create a style object so that we can lookup styles etc
-        # (ttk styles are weird!)
         self.ttk_style = ttk.Style()
 
-        for item in kwargs:
-            self.__setattr__(item, kwargs[item])
+        # Apply the initial values for color etc that were set in kwargs
+        for item in self.initial_styling:
+            self.__setattr__(item, self.initial_styling[item])
+        self.fully_initiated = True
         
     @property
     def color(self):
@@ -37,7 +51,8 @@ class Style:
     
     @property
     def font_size(self):
-        print('Can\'t get font size of styles yet due to issues with ttk')
+        if self.ttk_style.lookup(self.name, 'font') == 'TkDefaultFont':
+            return self.TK_DEFAULT_FONT_SIZE
         font_name, size = self.ttk_style.lookup(self.name, 'font')
         return size
     
@@ -53,6 +68,8 @@ class Style:
     
     @font.setter
     def font(self, value):
-        print('Can\'t set font of styles yet due to issues with ttk')
-        old_font_name, old_size = self.ttk_style.lookup(self.name, 'font')
-        self.ttk_style.configure(self.name, (value, old_size))
+        if self.ttk_style.lookup(self.name, 'font') == 'TkDefaultFont':
+            old_size = self.TK_DEFAULT_FONT_SIZE
+        else:
+            old_font_name, old_size = self.ttk_style.lookup(self.name, 'font')
+        self.ttk_style.configure(self.name, font=(value, old_size))

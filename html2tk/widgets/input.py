@@ -13,7 +13,8 @@ class Input(Widget):
         value = html_soup_element.attrs.get('value', '')
         placeholder = html_soup_element.attrs.get('placeholder', '')
 
-        self.tk_widget = ttk.Entry(self.master.tk_widget)
+        self.style = self.parent_application().stylesheet['input']
+        self.tk_widget = ttk.Entry(self.master.tk_widget, style=self.style.name)
         self.value = value
 
         self.showing_placeholder = False
@@ -28,14 +29,17 @@ class Input(Widget):
             self.value = self.placeholder
 
     def try_hide_placeholder(self, event=None):
-        if self.showing_placeholder and self.value != '':
+        if self.showing_placeholder and self.tk_widget.get() != '':
             self.value = ''
             self.showing_placeholder = False
     
     @property
     def value(self):
         '''The value that a user has typed into this widget'''
-        return self.tk_widget.get()
+        if self.showing_placeholder:
+            return ''
+        else:
+            return self.tk_widget.get()
     
     @value.setter
     def value(self, val):

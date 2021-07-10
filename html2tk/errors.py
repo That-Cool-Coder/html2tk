@@ -1,2 +1,2 @@
-class NoHtmlProvided(BaseException):
+class UndefinedStyle(Exception):
     pass

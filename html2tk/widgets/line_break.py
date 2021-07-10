@@ -9,4 +9,5 @@ class LineBreak(Widget):
     def __init__(self, master: Widget, html_soup_element: BeautifulSoup):
         super().__init__(master, html_soup_element)
 
-        self.tk_widget = ttk.Label(self.master.tk_widget)
+        self.style = self.parent_application().stylesheet['paragraph']
+        self.tk_widget = ttk.Label(self.master.tk_widget, style=self.style.name)

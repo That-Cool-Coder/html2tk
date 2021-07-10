@@ -20,7 +20,9 @@ class Select(Widget):
             value = ''
 
         self.tk_stringvar = tk.StringVar(self.master, value)
-        self.tk_widget = ttk.OptionMenu(self.master, self.tk_stringvar, None, *options)
+        self.style = self.parent_application().stylesheet['select']
+        self.tk_widget = ttk.OptionMenu(self.master, self.tk_stringvar,
+            None, *options, style=self.style.name)
         self.value = value
     
     @property
