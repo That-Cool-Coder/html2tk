@@ -33,6 +33,16 @@ class Style:
             self.__setattr__(item, self.initial_styling[item])
         self.fully_initiated = True
         
+    def copy(self):
+        '''Create a totally independent style object identical to this
+        '''
+
+        new_style = Style(self.base_style_name,
+            color=self.color, background_color=self.background_color,
+            font_size=self.font_size, font=self.font)
+        return new_style
+
+
     @property
     def color(self):
         return self.ttk_style.lookup(self.name, 'foreground')
@@ -59,7 +69,7 @@ class Style:
     @font_size.setter
     def font_size(self, value):
         font_name = self.ttk_style.lookup(self.name, 'font')
-        self.ttk_style.configure(self.name, font=(font_name, value))
+        self.ttk_style.configure(self.name, font=(font_name, int(value)))
     
     @property
     def font(self):

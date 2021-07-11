@@ -11,6 +11,7 @@ setup(
     install_requires=[
         'beautifulsoup4',
         'tkcolorpicker',
-        'colorutils'
+        'colorutils',
+        'cssutils'
     ]
 )

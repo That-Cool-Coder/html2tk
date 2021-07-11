@@ -35,6 +35,31 @@ html = '''
 </html>
 '''
 
+css = '''
+heading1 {
+    font-size: 30;
+    color: red;
+}
+
+heading2 {
+    font-size: 20;
+    color: blue;
+}
+
+paragraph {
+    color: purple;
+}
+
+input {
+    color: purple;
+    background-color: green;
+}
+
+button {
+    color: yellow;
+}
+'''
+
 global app
 
 def test_application():
@@ -42,8 +67,10 @@ def test_application():
     print('') # because pytest doesn't put a newline after their strings
 
     app = html2tk.Application()
+    stylesheet = html2tk.Stylesheet(css=css)
+    app.set_stylesheet(stylesheet)
     app.maximize()
-    app.add_html(html)
+    app.add_html(html) # add html after applying stylesheet
 
     app.get_element_by_id('submitButton').command = calc_happiness
     app.get_element_by_id('color').add_callback(update_background)

@@ -10,7 +10,8 @@ from .stylesheet import Stylesheet
 
 class Application(widgets.Div):
     '''Create a new application using htm2tk.
-    An application is just a special frame that handles window creation'''
+    An application is just a special frame that handles window creation
+    '''
     def __init__(self, html: str = None, html_file:str = None,
         soup:BeautifulSoup = None):
         
