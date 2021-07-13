@@ -6,6 +6,7 @@ import tkcolorpicker
 import colorutils
 
 from html2tk.widgets import Widget
+from html2tk.widgets import WidgetName
 
 class ColorInput(Widget):
     width = 40

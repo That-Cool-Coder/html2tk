@@ -1,47 +1,49 @@
+from html2tk.widgets.widget import Widget
 import tinycss2
 
 from .style import Style
+from html2tk.widgets import WidgetName
 
 class Stylesheet:
     BASE_STYLE_LOOKUP = {
-        'paragraph' : 'TLabel',
-        'heading1' : 'TLabel',
-        'heading2' : 'TLabel',
-        'button' : 'TButton',
-        'input' : 'TEntry',
-        'checkbox_input' : 'TCheckbutton',
-        'div' : 'TFrame'
+        WidgetName.PARAGRAPH : 'TLabel',
+        WidgetName.HEADING_1 : 'TLabel',
+        WidgetName.HEADING_2 : 'TLabel',
+        WidgetName.BUTTON : 'TButton',
+        WidgetName.INPUT : 'TEntry',
+        WidgetName.CHECKBOX_INPUT : 'TCheckbutton',
+        WidgetName.DIV : 'TFrame'
     }
 
     DEFAULT_STYLES = {
-        'paragraph' : Style(BASE_STYLE_LOOKUP['paragraph'],
+        WidgetName.PARAGRAPH : Style(BASE_STYLE_LOOKUP[WidgetName.PARAGRAPH],
             font='helvetica',
             font_size=12,
             color='black',
             background_color='grey90'),
-        'heading1' : Style(BASE_STYLE_LOOKUP['heading1'],
+        WidgetName.HEADING_1 : Style(BASE_STYLE_LOOKUP[WidgetName.HEADING_1],
             font='helvetica',
             font_size=24,
             color='black',
             background_color='grey90'),
-        'heading2' : Style(BASE_STYLE_LOOKUP['heading2'],
+        WidgetName.HEADING_2 : Style(BASE_STYLE_LOOKUP[WidgetName.HEADING_2],
             font='helvetica',
             font_size=18,
             color='black',
             background_color='grey90'),
-        'button' : Style(BASE_STYLE_LOOKUP['button'],
+        WidgetName.BUTTON : Style(BASE_STYLE_LOOKUP[WidgetName.BUTTON],
             font='helvetica',
             font_size=12,
             color='black'),
-        'input' : Style(BASE_STYLE_LOOKUP['input'],
+        WidgetName.INPUT : Style(BASE_STYLE_LOOKUP[WidgetName.INPUT],
             font='helvetica',
             font_size=12,
             color='black',
             background_color='white'),
-        'checkbox_input' : Style(BASE_STYLE_LOOKUP['checkbox_input'],
+        WidgetName.CHECKBOX_INPUT : Style(BASE_STYLE_LOOKUP[WidgetName.CHECKBOX_INPUT],
             color='black',
             background_color='grey90'),
-        'div' : Style(BASE_STYLE_LOOKUP['div'],
+        WidgetName.DIV : Style(BASE_STYLE_LOOKUP[WidgetName.DIV],
             background_color='grey90')
     }
 
@@ -99,11 +101,11 @@ class Stylesheet:
         '''Parse css and use it to create styles for this sheet'''
         css_rules = tinycss2.parse_stylesheet(css, skip_comments=True,
             skip_whitespace=True)
+            
         for rule in css_rules:
             class_name = rule.prelude[0].value
             declaration_list = tinycss2.parse_declaration_list(rule.content)
-            print(declaration_list)
-            # I don't know how to do dict comprehension so use a loop
+            
             attributes = {}
             for declaration in declaration_list:
                 if type(declaration) != tinycss2.ast.Declaration:
@@ -126,7 +128,7 @@ class Stylesheet:
         '''Load a dict of styles where the key is the element type
         and the value is the style.
         Note that this copies the styles from the dict
-        and does not create pointers
+        and does not keep references
         '''
         for style_name in style_dict:
             self.styles[style_name] = style_dict[style_name].copy()
@@ -137,7 +139,7 @@ class Stylesheet:
         Warning: do not call this before instantiating a Tk window,
         or an extra one will be made due to Tk weirdness.
         '''
-        style = self.styles.get(item, self.styles['paragraph'])
+        style = self.styles.get(item, self.styles[WidgetName.PARAGRAPH])
         if not style.fully_initiated:
             style.init()
         return style

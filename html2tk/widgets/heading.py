@@ -4,6 +4,7 @@ import tkinter.ttk as ttk
 from bs4 import BeautifulSoup
 
 from html2tk.widgets import Widget
+from html2tk.widgets import WidgetName
 
 class Heading(Widget):
     def __init__(self, master: Widget, html_soup_element: BeautifulSoup):
@@ -13,11 +14,11 @@ class Heading(Widget):
 
         elem_name = self.html_soup_element.name
         if elem_name == 'h1':
-            style_name = 'heading1'
+            style_name = WidgetName.HEADING_1
         elif elem_name == 'h2':
-            style_name = 'heading2'
+            style_name = WidgetName.HEADING_2
         else:
-            style_name = 'heading1'
+            style_name = WidgetName.HEADING_1
 
         self.style = self.parent_application().stylesheet[style_name]
 

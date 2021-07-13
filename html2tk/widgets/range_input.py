@@ -4,6 +4,7 @@ import tkinter.ttk as ttk
 from bs4 import BeautifulSoup
 
 from html2tk.widgets import Widget
+from html2tk.widgets import WidgetName
 
 class RangeInput(Widget):
     '''A widget representing the HTML <input type="range"> element'''

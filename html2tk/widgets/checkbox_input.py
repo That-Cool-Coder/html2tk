@@ -4,6 +4,7 @@ import tkinter.ttk as ttk
 from bs4 import BeautifulSoup
 
 from html2tk.widgets import Widget
+from html2tk.widgets import WidgetName
 
 class CheckboxInput(Widget):
     '''A widget representing HTML <input type="checkbox">'''
@@ -11,7 +12,7 @@ class CheckboxInput(Widget):
         super().__init__(master, html_soup_element)
 
         self.tk_intvar = tk.IntVar()
-        self.style = self.parent_application().stylesheet['checkbox_input']
+        self.style = self.parent_application().stylesheet[WidgetName.CHECKBOX_INPUT]
         self.tk_widget = ttk.Checkbutton(self.master.tk_widget, variable=self.tk_intvar,
             command=self.update_checked, style=self.style.name)
         

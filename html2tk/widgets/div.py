@@ -4,12 +4,13 @@ import tkinter.ttk as ttk
 from bs4 import BeautifulSoup
 
 from html2tk import widgets
+from html2tk.widgets import WidgetName
 
 class Div(widgets.Widget):
     def __init__(self, master: widgets.Widget, html_soup_element: BeautifulSoup):
         super().__init__(master, html_soup_element)
 
-        self.style = self.parent_application().stylesheet['div']
+        self.style = self.parent_application().stylesheet[WidgetName.DIV]
         self.tk_widget = ttk.Frame(self.master, style=self.style.name)
 
     def add_html_file(self, file_name: str):

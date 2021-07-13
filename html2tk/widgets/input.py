@@ -4,6 +4,7 @@ import tkinter.ttk as ttk
 from bs4 import BeautifulSoup
 
 from html2tk.widgets import Widget
+from html2tk.widgets import WidgetName
 
 class Input(Widget):
     '''A widget representing the html <input> element'''
@@ -13,7 +14,7 @@ class Input(Widget):
         value = html_soup_element.attrs.get('value', '')
         placeholder = html_soup_element.attrs.get('placeholder', '')
 
-        self.style = self.parent_application().stylesheet['input']
+        self.style = self.parent_application().stylesheet[WidgetName.INPUT]
         self.tk_widget = ttk.Entry(self.master.tk_widget, style=self.style.name)
         self.value = value
 

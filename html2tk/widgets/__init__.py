@@ -1,4 +1,5 @@
 from .widget import Widget
+from .widget_name import WidgetName
 from .div import Div
 from .line_break import LineBreak
 from .paragraph import Paragraph

@@ -2,6 +2,7 @@ import tkinter as tk
 import tkinter.ttk as ttk
 
 from html2tk.widgets import Widget
+from html2tk.widgets import WidgetName
 
 class Select(Widget):
     def __init__(self, master, html_soup_element):
@@ -20,7 +21,7 @@ class Select(Widget):
             value = ''
 
         self.tk_stringvar = tk.StringVar(self.master, value)
-        self.style = self.parent_application().stylesheet['select']
+        self.style = self.parent_application().stylesheet[WidgetName.SELECT]
         self.tk_widget = ttk.OptionMenu(self.master, self.tk_stringvar,
             None, *options, style=self.style.name)
         self.value = value
